@@ -1,0 +1,36 @@
+### Laravel + Nginx
+
+/$ docker network create laranet
+laravel/$ docker build -t laravel:prod . -f Dockerfile.prod
+nginx/$ docker build -t nginx:prod . -f Dockerfile.prod
+/$ docker run -d --network laranet --name laravel laravel:prod
+/$ docker run -d --network laranet --name nginx -p 8080:80 nginx:prod
+
+### Laravel + Nginx  - com docker-compose
+/$ docker-compose -f docker-compose.laravel.yaml up -d
+/$ docker-compose -f docker-compose.laravel.yaml down
+
+### node + mysql
+node/$ npm install
+
+/$ docker exec -it db bash
+    mysql -uroot -p
+    root
+    mysql> show databases;
+    mysql> use nodedb;
+    mysql> create table people(id int not null auto_increment, name varchar(255), primary key(id));
+    mysql> desc people;
+    mysql> select * from people;
+
+/$ docker exec -it app bash
+    node index.js
+
+/$ docker-compose up -d
+/$ docker exec -it app bash
+    node index.js
+/$ docker-compose down
+
+
+
+# para rebuildar
+docker-compose up -d --build
